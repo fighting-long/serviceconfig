@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+    gateway:
+      routes:
+        - id: user_route                            # 指定路由唯一标识
+          #uri: http://localhost:9000/ # 指定路由服务的地址
+          uri: lb://users # 使用负载均衡分配 给分发的路由
+          predicates:
+            - Path=/test/**                      # 指定路由规则
+        - id: prod_route                            # 指定路由唯一标识
+          #uri: http://localhost:9001/ # 指定路由服务的地址
+          uri: lb://products # 使用负载均衡分配 给分发的路由
+          predicates:
+            - Path=/product/**                      # 指定路由规则
+          filters:
+            - AddResponseHeader=lxh, Blue
+      discovery:
+        locator:
+          enabled: true                            #开启根据服务名动态获取路由，负载均衡需要
