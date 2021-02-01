@@ -20,3 +20,8 @@ spring:
       discovery:
         locator:
           enabled: true                            #开启根据服务名动态获取路由，负载均衡需要
+  rabbitmq:
+    host: 192.168.100.10
+    port: 5672
+    username: guest
+    password: guest
